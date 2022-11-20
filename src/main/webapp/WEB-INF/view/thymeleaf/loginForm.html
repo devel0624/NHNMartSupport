@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{login}"></title>
+</head>
+<body>
+<form method="post" action="/login">
+    <span th:text="#{id}"></span> : <input type="text" name="id"/> <br />
+    <span th:text="#{password}"></span> : <input type="text" name="password"/><br />
+    <input type="submit"/><br/>
+    <span> default_customers </span><br/>
+    <span> "customer01", "12345" </span><br/>
+    <span> "customer02", "12345" </span><br/>
+    <span> default_manager </span><br/>
+    <span> "manager01" , "12345"</span><br/>
+    <span th:text="${message}"></span>
+</form>
+</body>
+</html>

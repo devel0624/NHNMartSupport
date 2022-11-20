@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <h1>문의 상세</h1>
+
+  <span th:text="#{category}"></span> : <span th:text="${post.category}"></span> <br>
+  <span th:text="#{writeTime}"></span> : <span th:text="${post.writeTime}"></span> <br>
+  <span th:text="#{writerId}"></span> : <span th:text="${post.writerId}"></span> <br>
+  <span th:text="#{title}"></span> : <span th:text="${post.title}"></span> <br><br>
+
+  <span th:text="#{content}"></span> <br/>
+  <span th:text="${post.content}"></span>
+  <br/>
+
+  <th:block th:unless="${admin} == true">
+    <h3 th:if="${post.reply == null}"> <span th:text="#{replyNotYet}"></span></h3>
+
+    <th:block th:unless="${post.reply == null}">
+      <h3> <span th:text="#{reply}"></span> </h3>
+      <span th:text="#{writerId}"></span> : <span th:text="${reply.writerId}"></span> <br>
+      <span th:text="#{writeTime}"></span> : <span th:text="${reply.writeTime}"></span> <br>
+      <span th:text="#{title}"></span> : <span th:text="${reply.title}"></span> <br><br>
+
+      <span th:text="#{content}"></span> <br/>
+      <span th:text="${reply.content}"></span>
+    </th:block>
+  </th:block>
+
+  <th:block th:if="${admin} == true">
+    <a th:href="@{/post/register/{postId}(postId = ${post.postId})}"> <span th:text="#{registerReply}"></span></a>
+  </th:block>
+
+  <br/>
+
+  <a th:href="@{/user}"> <span th:text="#{registerReply}"></span> </a>
+
+</body>
+</html>

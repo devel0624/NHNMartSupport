@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title th:text="#{indexTitle}"></title>
+</head>
+<body>
+<h1 th:text="#{indexTitle}"></h1>
+
+<a href="/login"> <span th:text="#{login}"></span> </a> </br>
+<!--<a href="/logout"> <span th:text="#{logout}"></span> </a> <br/>-->
+
+<a th:href="${#locale.toString() != 'ko'} ? '?locale=ko':'?locale=en' "> <span th:text="#{locale}"></span> </a> <br/>
+</body>
+</html>
