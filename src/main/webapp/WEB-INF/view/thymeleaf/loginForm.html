@@ -5,10 +5,14 @@
     <title th:text="#{login}"></title>
 </head>
 <body>
+<h1 th:text="#{login}"></h1>
+<hr/>
 <form method="post" action="/login">
     <span th:text="#{id}"></span> : <input type="text" name="id"/> <br />
-    <span th:text="#{password}"></span> : <input type="text" name="password"/><br />
+    <span th:text="#{password}"></span> : <input type="password" name="password"> <br />
     <input type="submit"/><br/>
+    <a href="/"> <span th:text="#{toTitle}"></span> </a>
+    <hr/>
     <span> default_customers </span><br/>
     <span> "customer01", "12345" </span><br/>
     <span> "customer02", "12345" </span><br/>

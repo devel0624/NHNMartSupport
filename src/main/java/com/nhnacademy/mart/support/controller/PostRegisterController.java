@@ -53,7 +53,7 @@ public class PostRegisterController {
                                    Model model){
 
         model.addAttribute("userId",userId);
-        return "thymeleaf/postRegister";
+        return "thymeleaf/inquiryRegister";
     }
 
     @PostMapping
@@ -74,7 +74,7 @@ public class PostRegisterController {
         post.setWriterId(userId);
         post.setWriteTime(time);
 
-        if(post.getCategory().equals("reply")){
+        if(post.getCategory().equals("Reply")){
             postRepository.getPost(postId).setReply(post);
             post.setReply(new Post());
             mav.setViewName("redirect:/user");

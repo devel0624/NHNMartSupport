@@ -2,40 +2,43 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
-    <title th:text="#{viewTitle}"></title>
+    <title th:text="#{userTitle}"></title>
 </head>
 <body>
-    <span th:text="${message}"></span> <span th:text="#{name}"></span> : <span th:text="${user.name}"></span> <br/>
-    <a th:href="@{/post/register}" th:unless="${admin} == true"> <span> 문의 하기 </span> </a>
+<h1 th:text="#{userTitle}"></h1>
+<hr/>
+<span th:text="#{name}"></span> : <span th:text="${user.name}"></span> <br/>
+<span th:text="#{email}"></span> : <span th:text="${user.email}"></span> <br/>
+<a th:href="@{/post/register}" th:unless="${admin} == true"> <span th:text="#{registerInquiry}"></span> </a>
     <!-- 문의 목록 조회 -->
-    <br />
-
-    <form method="post" action="/post/filter">
-        <select name="category">
-            <option value="Complaint">불만 접수</option>
-            <option value="Suggest">제안</option>
-            <option value="Refund">환불/교환</option>
-            <option value="Praise">칭찬해요</option>
-            <option value="Etc">기타 문의</option>
-        </select>
-        <input type="submit" value="필터">
-    </form>
-    <table>
-        <tr>
-            <th>REPLY</th>
-            <th>TITLE</th>
-            <th>CATEGORY</th>
-            <th>REGISTER TIME</th>
-        </tr>
-        <tr th:each="post: ${list}">
-                <td th:if="${post.reply == null}"> 답변 안됨 </td>
-                <td th:if="${post.reply != null}"> 답변 완료 </td>
-                <td><a th:href="@{/post/{postId}(postId=${post.postId})}" th:text="${post.title}"></a></td>
-                <td th:text="${post.category}"></td>
-                <td th:text="${post.writeTime}"></td>
-        </tr>
-    </table>
-    <a href="/"> <span th:text="#{toTitle}"></span> </a> <br />
-    <a href="/logout"> <span th:text="#{logout}"></span> </a> <br />
+<hr/>
+<form method="post" action="/post/filter">
+    <select name="category">
+        <option value="Complaint"><span th:text="#{Complaint}"></span></option>
+        <option value="Suggest"><span th:text="#{Suggest}"></span></option>
+        <option value="Refund"><span th:text="#{Refund}"></span></option>
+        <option value="Praise"><span th:text="#{Praise}"></span></option>
+        <option value="Etc"><span th:text="#{Etc}"></span></option>
+    </select>
+    <input type="submit" th:value="#{filter}">
+</form>
+<table>
+    <tr>
+        <th>REPLY</th>
+        <th>TITLE</th>
+        <th>CATEGORY</th>
+        <th>REGISTER TIME</th>
+    </tr>
+    <tr th:each="post: ${list}">
+        <td th:if="${post.reply == null}"> <span th:text="#{replyNotYet}"></span> </td>
+        <td th:if="${post.reply != null}"> <span th:text="#{replyComplete}"></span> </td>
+        <td><a th:href="@{/post/{postId}(postId=${post.postId})}" th:text="${post.title}"></a></td>
+        <td th:text="${post.category}"></td>
+        <td th:text="${post.writeTime}"></td>
+    </tr>
+</table>
+<hr/>
+<a href="/"> <span th:text="#{toTitle}"></span> </a> <br />
+<a href="/logout"> <span th:text="#{logout}"></span> </a> <br />
 </body>
 </html>

@@ -1,7 +1,5 @@
 package com.nhnacademy.mart.support.domain;
 
-import com.nhnacademy.mart.support.exception.LoginSessionNotExist;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -9,11 +7,14 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class LoginCookie {
+
+    private LoginCookie(){
+    }
     public static String getLoginCookie(HttpServletRequest request) {
         Cookie cookie = getCookie(request);
 
         if(Objects.isNull(cookie)){
-            throw new LoginSessionNotExist();
+            return null;
         }
 
         return cookie.getValue();
@@ -24,7 +25,7 @@ public class LoginCookie {
         Cookie[] cookie = request.getCookies();
 
         if(Objects.isNull(cookie)){
-            throw new NullPointerException("Cookie is Null");
+            return null;
         }
 
         if(Arrays.stream(cookie).noneMatch(x -> x.getName().equals("LoginSession"))){

@@ -34,46 +34,44 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public String loginForm(){
+    public String loginForm(HttpServletRequest request){
+
+        if(Objects.nonNull(LoginCookie.getCookie(request))){
+            return "redirect:/user";
+        }
         log.info("loginForm");
         return "thymeleaf/loginForm";
     }
 
     @PostMapping ("/login")
     public ModelAndView login(HttpServletResponse response,
-                              HttpServletRequest request,
                               @Valid @ModelAttribute LoginRequest loginRequest,
                               BindingResult bindingResult,
                               ModelAndView modelAndView){
 
-        if(Objects.nonNull(LoginCookie.getCookie(request))){
-            modelAndView.setViewName("redirect:/user");
-        }else {
-            if(bindingResult.hasErrors()){
-                throw new ValidationFailedException(bindingResult);
-            }
-
-            String id = loginRequest.getId();
-            String password = loginRequest.getPassword();
-
-            modelAndView.setViewName("thymeleaf/loginForm");
-
-            if(userRepository.exists(id)) {
-                User user = userRepository.getUser(id);
-
-                if(user.getPwd().equals(password)){
-                    Cookie cookie = new Cookie("LoginSession",user.getId());
-                    response.addCookie(cookie);
-
-                    modelAndView.setViewName("redirect:/user");
-                }else {
-                    throw new InvalidPassword();
-                }
-            }else{
-                throw new UserNotFoundException();
-            }
+        if(bindingResult.hasErrors()){
+            throw new ValidationFailedException(bindingResult);
         }
 
+        String id = loginRequest.getId();
+        String password = loginRequest.getPassword();
+
+        modelAndView.setViewName("thymeleaf/loginForm");
+
+        if(userRepository.exists(id)) {
+            User user = userRepository.getUser(id);
+
+            if(user.getPwd().equals(password)){
+                Cookie cookie = new Cookie("LoginSession",user.getId());
+                response.addCookie(cookie);
+
+                modelAndView.setViewName("redirect:/user");
+            }else {
+                throw new InvalidPassword();
+            }
+        }else{
+            throw new UserNotFoundException();
+        }
         return modelAndView;
     }
 

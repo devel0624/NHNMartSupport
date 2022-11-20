@@ -31,16 +31,21 @@ public class RootConfig {
     public PostRepository postRepository() {
         PostRepository postRepository = new PostRepositoryImpl();
 
-        Post post = postRepository.register("Suggest","테스트용","테스트용 문의 게시글입니다.");
-        post.setWriterId("customer01");
-        post.setWriteTime("2022-11-19");
+        Post post1 = postRepository.register("Suggest","답변 완료 문의","답변 완료된 문의 게시글입니다.");
+        post1.setWriterId("customer01");
+        post1.setWriteTime("2022-11-19");
+
+        Post post2 = postRepository.register("Suggest","답변 미완료 문의","답변 미완료된 문의 게시글입니다.");
+        post2.setWriterId("customer02");
+        post2.setWriteTime("2022-11-19");
 
         Post reply = postRepository.register("Reply","테스트 답변","테스트용 답변 게시글입니다.");
 
         reply.setWriterId("CSManager");
         reply.setWriteTime("2022-11-19");
+        reply.setReply(new Post());
 
-//        post.setReply(reply);
+        post1.setReply(reply);
 
         return postRepository;
     }

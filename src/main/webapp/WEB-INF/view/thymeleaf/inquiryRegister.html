@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{registerInquiry}"></title>
+</head>
+<body>
+<h1 th:text="#{registerInquiry}"></h1>
+  <form method="post" action="/post/register">
+    <span th:text="#{title}"></span> : <input type="text" name="title" />
+    <span th:text="#{writerId}"></span> : <input type="text" name="writerId" th:value="${userId}" disabled="true"/><br />
+
+    <span th:text="#{category}"></span> :
+    <select name="category">
+      <option value="Complaint"><span th:text="#{Complaint}"></span></option>
+      <option value="Suggest"><span th:text="#{Suggest}"></span></option>
+      <option value="Refund"><span th:text="#{Refund}"></span></option>
+      <option value="Praise"><span th:text="#{Praise}"></span></option>
+      <option value="Etc"><span th:text="#{Etc}"></span></option>
+    </select><br />
+    <textarea name="content" rows="10" cols="80"></textarea><br />
+
+    <input type="submit" /> <br/>
+    <input type="button" onclick = "location.href = '/user'" th:value="#{cancelInquiry}">
+
+  </form>
+</body>
+</html>
